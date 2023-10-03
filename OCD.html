@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>OCD Test</title>
+</head>
+<style>
+    /* CSS styles */
+body {
+font-family: Arial, sans-serif;
+background-color: #f4f4f4;
+margin: 10px;
+padding: 0;
+}
+
+form {
+max-width: 600px;
+margin: 0 auto;
+padding: 20px;
+background: #ffffff;
+border-radius: 5px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+display: flex;
+flex-direction: column;
+align-items: center; /* Center the form contents */
+}
+
+.question {
+margin-bottom: 15px;
+text-align: left; /* Align question text to the left */
+width: 100%; /* Make sure questions span the full width */
+}
+
+label {
+display: block;
+margin-bottom: 5px;
+}
+
+button {
+background-color: #007bff;
+color: white;
+border: none;
+padding: 10px 15px;
+border-radius: 3px;
+cursor: pointer;
+}
+
+#result {
+margin-top: 15px;
+font-weight: bold;
+}
+
+.hidden {
+display: none;
+}
+
+h1 {
+text-align: center;
+}
+
+form {
+text-align: center;
+}
+
+   
+</style>
+<body>
+    <form id="ocd-test-form">
+        <h1>OCD Test</h1>
+        <div class="question">
+            <p>1. Are you bothered by unwanted, repetitive thoughts or obsessions?</p>
+            <label><input type="radio" name="question-1" value="0"> Not at all</label>
+            <label><input type="radio" name="question-1" value="1"> Occasionally</label>
+            <label><input type="radio" name="question-1" value="2"> Often</label>
+            <label><input type="radio" name="question-1" value="3"> Almost always</label>
+        </div>
+
+        <div class="question">
+            <p>2. Do you feel compelled to perform certain behaviors or rituals to alleviate anxiety?</p>
+            <label><input type="radio" name="question-2" value="0"> Not at all</label>
+            <label><input type="radio" name="question-2" value="1"> Occasionally</label>
+            <label><input type="radio" name="question-2" value="2"> Often</label>
+            <label><input type="radio" name="question-2" value="3"> Almost always</label>
+        </div>
+
+        <div class="question">
+            <p>3. Do you spend a lot of time each day performing these rituals or behaviors?</p>
+            <label><input type="radio" name="question-3" value="0"> Not at all</label>
+            <label><input type="radio" name="question-3" value="1"> Occasionally</label>
+            <label><input type="radio" name="question-3" value="2"> Often</label>
+            <label><input type="radio" name="question-3" value="3"> Almost always</label>
+        </div>
+
+        <div class="question">
+            <p>4. Do these obsessions and compulsions interfere significantly with your daily life?</p>
+            <label><input type="radio" name="question-4" value="0"> Not at all</label>
+            <label><input type="radio" name="question-4" value="1"> Occasionally</label>
+            <label><input type="radio" name="question-4" value="2"> Often</label>
+            <label><input type="radio" name="question-4" value="3"> Almost always</label>
+        </div>
+
+        <div class="question">
+            <p>5. Do you find it difficult to control these thoughts or behaviors?</p>
+            <label><input type="radio" name="question-5" value="0"> Not at all</label>
+            <label><input type="radio" name="question-5" value="1"> Occasionally</label>
+            <label><input type="radio" name="question-5" value="2"> Often</label>
+            <label><input type="radio" name="question-5" value="3"> Almost always</label>
+        </div>
+
+        <div class="question">
+            <p>6. Do these thoughts or behaviors cause you significant distress?</p>
+            <label><input type="radio" name="question-6" value="0"> Not at all</label>
+            <label><input type="radio" name="question-6" value="1"> Occasionally</label>
+            <label><input type="radio" name="question-6" value="2"> Often</label>
+            <label><input type="radio" name="question-6" value="3"> Almost always</label>
+        </div>
+
+        <div class="question">
+            <p>7. Have these symptoms been present for at least six months?</p>
+            <label><input type="radio" name="question-7" value="0"> Not at all</label>
+            <label><input type="radio" name="question-7" value="1"> Occasionally</label>
+            <label><input type="radio" name="question-7" value="2"> Often</label>
+            <label><input type="radio" name="question-7" value="3"> Almost always</label>
+        </div>
+
+        <button type="button" id="calculate-button">Calculate</button>
+        <div id="result" class="hidden">Your OCD score: <span id="percentage">0%</span></div>
+    </form>
+
+    <script >
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("ocd-test-form");
+            const calculateButton = document.getElementById("calculate-button");
+            const resultContainer = document.getElementById("result");
+            const percentageSpan = document.getElementById("percentage");
+        
+            calculateButton.addEventListener("click", function () {
+                let totalScore = 0;
+        
+                for (let i = 1; i <= 7; i++) {
+                    const question = form.querySelector(`input[name="question-${i}"]:checked`);
+                    if (question) {
+                        totalScore += parseInt(question.value);
+                    }
+                }
+        
+                const percentage = (totalScore / 21) * 100;
+        
+                resultContainer.classList.remove("hidden");
+                percentageSpan.textContent = `${percentage.toFixed(2)}%`;
+            });
+        });
+        
+    </script>
+</body>
+</html>

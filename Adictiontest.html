@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* CSS styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 10px;
+    padding: 0;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the form contents */
+}
+
+.question {
+    margin-bottom: 15px;
+    text-align: left; /* Align question text to the left */
+    width: 100%; /* Make sure questions span the full width */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#result {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+       
+    </style>
+    <title>Substance Use Disorder Test</title>
+</head>
+<body>
+    <form id="substance-use-test-form">
+        <h1>Addiction Test</h1>
+        <div class="question">
+            <p>Have you ever felt that you ought to cut down on your drinking or drug use?</p>
+            <label><input type="radio" name="question-1" value="1"> Yes</label>
+            <label><input type="radio" name="question-1" value="0"> No</label>
+        </div>
+
+        <div class="question">
+            <p>Have people annoyed you by criticizing your drinking or drug use?</p>
+            <label><input type="radio" name="question-2" value="1"> Yes</label>
+            <label><input type="radio" name="question-2" value="0"> No</label>
+        </div>
+
+        <div class="question">
+            <p>Have you ever felt bad or guilty about your drinking or drug use?</p>
+            <label><input type="radio" name="question-3" value="1"> Yes</label>
+            <label><input type="radio" name="question-3" value="0"> No</label>
+        </div>
+
+        <div class="question">
+            <p>Have you ever had a drink or used drugs first thing in the morning to steady your nerves or to get rid of a hangover?</p>
+            <label><input type="radio" name="question-4" value="1"> Yes</label>
+            <label><input type="radio" name="question-4" value="0"> No</label>
+        </div>
+
+        <div class="question">
+            <p>What substance or addiction are you concerned about? Select all that apply.</p>
+            <label><input type="checkbox" name="question-5a" value="1"> Alcohol</label>
+            <label><input type="checkbox" name="question-5b" value="1"> Marijuana</label>
+            <label><input type="checkbox" name="question-5c" value="1"> Cocaine/Crack</label>
+            <label><input type="checkbox" name="question-5d" value="1"> Heroin</label>
+            <label><input type="checkbox" name="question-5e" value="1"> Prescription Opioids</label>
+            <label><input type="checkbox" name="question-5f" value="1"> Stimulants (e.g. Speed, Meth, Prescription Stims)</label>
+            <label><input type="checkbox" name="question-5g" value="1"> Benzodiazepines (e.g. Xanax, Valium)</label>
+            <label><input type="checkbox" name="question-5h" value="1"> Tobacco</label>
+            <label><input type="checkbox" name="question-5i" value="1"> Self-harm</label>
+            <label><input type="checkbox" name="question-5j" value="1"> Other (e.g. gambling, sex, internet, shopping, food, etc.)</label>
+        </div>
+
+        <button type="button" id="calculate-button">Calculate</button>
+        <div id="result" class="hidden">Your substance use disorder score: <span id="percentage">0%</span></div>
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("substance-use-test-form");
+            const calculateButton = document.getElementById("calculate-button");
+            const resultContainer = document.getElementById("result");
+            const percentageSpan = document.getElementById("percentage");
+
+            calculateButton.addEventListener("click", function () {
+                let totalScore = 0;
+
+                for (let i = 1; i <= 4; i++) {
+                    const question = form.querySelector(`input[name="question-${i}"]:checked`);
+                    if (question) {
+                        totalScore += parseInt(question.value);
+                    }
+                }
+
+                const question5Values = [
+                    form.querySelector(`input[name="question-5a"]:checked`),
+                    form.querySelector(`input[name="question-5b"]:checked`),
+                    form.querySelector(`input[name="question-5c"]:checked`),
+                    form.querySelector(`input[name="question-5d"]:checked`),
+                    form.querySelector(`input[name="question-5e"]:checked`),
+                    form.querySelector(`input[name="question-5f"]:checked`),
+                    form.querySelector(`input[name="question-5g"]:checked`),
+                    form.querySelector(`input[name="question-5h"]:checked`),
+                    form.querySelector(`input[name="question-5i"]:checked`),
+                    form.querySelector(`input[name="question-5j"]:checked`)
+                ];
+
+                for (let i = 0; i < question5Values.length; i++) {
+                    if (question5Values[i]) {
+                        totalScore += parseInt(question5Values[i].value);
+                    }
+                }
+
+                const percentage = (totalScore / 24) * 100;
+
+                resultContainer.classList.remove("hidden");
+                percentageSpan.textContent = `${percentage.toFixed(2)}%`;
+            });
+        });
+    </script>
+</body>
+</html>
